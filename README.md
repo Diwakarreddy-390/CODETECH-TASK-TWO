@@ -41,7 +41,7 @@ The testbench file simulates the behavior of the FSM by applying different input
 3. Use the provided waveform script (`fsm_waveform.do`) to generate and observe waveforms of inputs, outputs, and state transitions.
 4. Verify that the FSM behaves as expected for all test cases.
 
-   ### OUTPUT
+   ## OUTPUT
 
    <div style="text-align: center;">
     <img src = "WhatsApp Image 2024-10-07 at 9.39.01 PM.jpeg" height = 80% width = 80% title = "Process Flow" >
