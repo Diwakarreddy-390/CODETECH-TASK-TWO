@@ -1,1 +1,64 @@
 
+# FINITE STATE MACHINE
+
+module fsm (
+    input wire clk,
+    input wire reset,
+    input wire in,
+    output reg [1:0] state
+);
+
+localparam IDLE = 2'b00,
+           STATE1 = 2'b01,
+           STATE2 = 2'b10;
+
+always @(posedge clk or posedge reset) begin
+    if (reset)
+        state <= IDLE;
+    else begin
+        case (state)
+            IDLE:   if (in) state <= STATE1;
+                    else state <= IDLE;
+            STATE1: if (in) state <= STATE2;
+                    else state <= IDLE;
+            STATE2: if (!in) state <= IDLE;
+                    else state <= STATE2;
+            default: state <= IDLE;
+        endcase
+    end
+end
+
+endmodule
+
+module fsm_testbench();
+
+reg clk;
+reg reset;
+reg in;
+wire [1:0] state;
+
+fsm uut (
+    .clk(clk),
+    .reset(reset),
+    .in(in),
+    .state(state)
+);
+
+always begin
+    #5 clk = ~clk;
+end
+
+initial begin
+    clk = 0;
+    reset = 1;
+    in = 0;
+    #10 reset = 0;
+    #10 in = 1;
+    #20 in = 0;
+    #10 in = 1;
+    #20 in = 0;
+    #50 $stop;
+end
+
+endmodule
+
